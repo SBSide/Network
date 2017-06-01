@@ -77,7 +77,7 @@ public class RSSRead extends AppCompatActivity {
             return 0;
         }
 
-        private int parseDocument(Document doc){
+        private int parseDocument(Document doc){ //item단위로 RSS를 분할한다.
             Element docEle = doc.getDocumentElement();
             NodeList nodeList = docEle.getElementsByTagName("item");
             int count = 0;
@@ -94,23 +94,29 @@ public class RSSRead extends AppCompatActivity {
         }
 
         private String getTagData(NodeList nodelist, int index) {
+            /*item단위로 분할한 RSS를
+            * 제목(title), 날짜(pubDate)로 분리하고
+            * String 하나로 다시 합친다.
+            * */
             String newsItem = null;
             try {
                 Element entry = (Element) nodelist.item(index);
                 Element title = (Element) entry.getElementsByTagName("title").item(0);
                 Element pubDate = (Element) entry.getElementsByTagName("pubDate").item(0);
                 String titleValue = null;
-                if (title != null) {
+                if (title != null) {//제목부분
                     Node firstChild = title.getFirstChild();
                     if (firstChild != null) titleValue = firstChild.getNodeValue();
                 }
                 String pubDateValue = null;
-                if (pubDate != null) {
+                if (pubDate != null) {//날짜부분
                     Node ff = pubDate.getFirstChild();
                     if (ff != null) pubDateValue = ff.getNodeValue();
                 }
+                //날짜 포맷을 설정하는 부분
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
                 Date date = new Date();
+                //String으로 합치는 부분
                 newsItem = titleValue + "-" + simpleDateFormat.format(date.parse(pubDateValue));
             } catch (DOMException e) {
                 e.printStackTrace();

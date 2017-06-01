@@ -42,7 +42,7 @@ public class HTTPRead extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        String readData(InputStream is){
+        String readData(InputStream is){//한 줄 단위로 HTML문서를 읽어온다. 완료시 읽어온 String 반환.
             String dt = "";
             Scanner s = new Scanner(is);
             while(s.hasNext()) dt += s.nextLine() + "\n";
