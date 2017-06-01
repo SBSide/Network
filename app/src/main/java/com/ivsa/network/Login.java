@@ -1,8 +1,11 @@
 package com.ivsa.network;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,8 +36,8 @@ public class Login extends AppCompatActivity {
                         (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
-                String postData = "userid=" + URLEncoder.encode(userid)
-                        + "&password=" + URLEncoder.encode(password);
+                String postData = "userid=" + URLEncoder.encode(userid,"utf-8")
+                        + "&password=" + URLEncoder.encode(password,"utf-8");
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postData.getBytes("UTF-8"));
                 outputStream.flush();
@@ -76,6 +79,20 @@ public class Login extends AppCompatActivity {
         user = (EditText) findViewById(R.id.etuser);
         pw   = (EditText) findViewById(R.id.etpw);
         msg  = (TextView) findViewById(R.id.tmsg);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0,1,1,"이전 Activity로");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(Login.this, RSSRead.class);
+        startActivity(intent);
+        finish();
+        return true;
     }
 
     public void onClick(View v){

@@ -1,9 +1,12 @@
 package com.ivsa.network;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -121,6 +124,29 @@ public class RSSRead extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
         adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,data);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0,1,1,"이전 Activity로");
+        menu.add(0,2,2,"다음 Activity로");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == 1) {
+            Intent intent = new Intent(RSSRead.this, HTTPRead.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        else {
+            Intent intent = new Intent(RSSRead.this, Login.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
     }
 
     public void onClick(View v){
