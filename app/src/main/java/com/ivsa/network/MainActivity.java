@@ -18,7 +18,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
-    String SERVER_IP = "172.17.64.137";
+    String SERVER_IP = "192.168.0.125";
     int SERVER_PORT = 200;
     String msg = "";
     EditText e1;
